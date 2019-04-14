@@ -110,8 +110,8 @@ function applyModal() {
   <label for="zipcode">Zipcode</label>
   <input type="text" id="zipcode">
   
-  <label for="monthsataddress">Months At Address</label>
-  <input type="text" id="monthsataddress">
+  <label for="dateOfBirth">Date of Birth</label>
+  <input type="text" id="dateOfBirth">
   <button id='loanSubmit'>Submit</button>
   </form>
   <div id='loanResponses'></div>
@@ -137,12 +137,18 @@ function applyModal() {
     if (event.target.id == 'loanSubmit') {
       event.preventDefault();
       let firstname = $('#firstname');
+      let lastname = $('#lastname');
+      let dateOfBirth = $('#dateOfBirth');
       firstname.val();
-      console.log('this is firstname', firstname);
       let loanResponses = `<div>Hi ${firstname.val()} here are your offers!</div><ul id='offerList'>Now loading offers...</ul>`
       $('#loanResponses').html(loanResponses);
+      let formFields = {
+        "firstname": firstname.val(),
+        "lastname": lastname.val(),
+        "dateOfBirth": dateOfBirth.val()
+      }
       clearFields();
-      apiRequest();
+      apiRequest(formFields);
     }
   })
 
@@ -156,9 +162,82 @@ function applyModal() {
     }
   })
 
-  function apiRequest() {
+  function apiRequest(formFields) {
+
     console.log('sending postman')
-    var data = JSON.stringify({});
+    var data = JSON.stringify({
+      "productTypes": [
+        "loan", 
+        "savings"
+      ],
+      "loanInformation": {
+        "purpose": "large_purchases", 
+        "loanAmount": 10000
+        // .sc-price
+      },
+      "personalInformation": {
+        "firstName": formFields.firstname, 
+        "lastName": formFields.lastname,
+        "dateOfBirth": formFields.dateOfBirth,
+      },
+      "mortgageInformation": {
+        "propertyType": "condo", 
+        "propertyStatus": "own_with_mortgage", 
+        "propertyValue": 200000, 
+        "mortgageBalance": 10000, 
+        "lenderName": "Bank OF NY", 
+        "hasFHALoan": true, 
+        "currentWithLoan": true
+      }, 
+      "creditCardInformation": {
+        "allowAnnualFee": true, 
+        "cardBenefits": [
+          "travel_incentives"
+        ]
+      }, 
+      "creditInformation": {
+        "providedCreditRating": "excellent", 
+        "providedNumericCreditScore": 780
+      }, 
+      "financialInformation": {
+        "employmentStatus": "employed", 
+        "employmentPayFrequency": "weekly", 
+        "annualIncome": 12000, 
+        "monthlyNetIncome": 1000, 
+        "bankName": "Santander", 
+        "bankRoutingNumber": "231372691", 
+        "bankAccountType": "savings", 
+        "monthsAtBank": 10, 
+        "bankAccountNumber": "1234567890"
+      }, 
+      "employmentInformation": {
+        "employerName": "EVEN Financial", 
+        "employerAddress": "45 W 21st St", 
+        "employerCity": "New York", 
+        "employerState": "NY", 
+        "employerZip": "10010", 
+        "jobTitle": "Software Engineer", 
+        "monthsEmployed": 14, 
+        "directDeposit": true, 
+        "payDate1": "2004-10-06", 
+        "payDate2": "2004-11-06"
+      }, 
+      "legalInformation": {
+        "consentsToFcra": true, 
+        "consentsToTcpa": true, 
+        "tcpaLanguage": "I agree to be contacted by Even Financial and its partners at the telephone number(s) I have provided above to explore personal loan offers, including contact through automatic dialing systems, artificial or pre-recorded voice messaging, or text message. I understand my consent is not required as a condition to purchasing any goods or services from anyone."
+      }, 
+      "clientTags": {
+        "hello": [
+          "world", 
+          "there"
+        ], 
+        "something": [
+          "else"
+        ]
+      }
+    });
+    console.log('this is value of data',data)
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 

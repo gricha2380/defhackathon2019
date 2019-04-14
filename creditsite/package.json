@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
+    "@google-cloud/storage": "^2.5.0",
     "@ladjs/bootstrap-social": "^7.0.2",
     "@octokit/rest": "^16.23.2",
     "axios": "^0.18.0",
