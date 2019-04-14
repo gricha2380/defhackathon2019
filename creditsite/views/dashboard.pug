@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 Even's Credit Score Dashboard
-  p.lead Hello Gregor, welcome to your dashboard!
-  hr
+  h1.text-center Even's Credit Score Dashboard
+  p.lead.text-center Hello Gregor, welcome to your dashboard!
+  hr.bigBreak
   .row
     .col-md-8
       .row.factors
@@ -56,18 +56,18 @@ block content
       .row
         div#scoreHolder
           div#scoreViz
-            img(src='rainbow.svg')
+            img(src='rainbow.png')
           div#scoreNumber 72
           div#scoreLetter S
             .scoreInfo ?
-            ul.scoreLegend
-              li High Savings
-                span.letterTitle S
-              li High Income
-                span.letterTitle I
-              li Low Credit Used
-                span.letterTitle C
-              li Few Late Payments
-                span.letterTitle P
-              li Low Debt
-                span.letterTitle D
+              ul.scoreLegend
+                li High Savings
+                  span.letterTitle S
+                li High Income
+                  span.letterTitle I
+                li Low Credit Used
+                  span.letterTitle C
+                li Few Late Payments
+                  span.letterTitle P
+                li Low Debt
+                  span.letterTitle D
